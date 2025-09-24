@@ -21,8 +21,7 @@ export default function StaffRecruitment() {
       company: 'From Ambition to Achievement.',
       industry: 'RKY Careers',
       image: '/images/staff-recruitment.jpg',
-     // image: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=600',
-      challenge: 'Feeling stuck in a rut and unsure about career progression.',
+     challenge: 'Feeling stuck in a rut and unsure about career progression.',
       solution: 'Through personalized guidance and assessment, we help you gain valuable insights into your unique skill set and potential career paths. Whether you’re a recent graduate exploring your options or a seasoned professional looking to make a career pivot, our experienced consultants are here to provide you with the support and resources you need to make informed decisions about your future.',
       results: [
         { metric: 'Turnover Reduction', value: '65%', icon: <TrendingUp className="w-5 h-5" /> },
@@ -31,48 +30,7 @@ export default function StaffRecruitment() {
       ],
       tags: ['Professional Support', 'Strategic Planning', 'Career Growth']
     },
-    // {
-    //   title: 'Fortune 500 Engagement Revival',
-    //   company: 'Global Manufacturing Corp',
-    //   industry: 'Manufacturing',
-    //   image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600',
-    //   challenge: 'Post-merger integration challenges leading to decreased morale and conflicting cultures.',
-    //   solution: 'Designed unified culture framework with leadership alignment and comprehensive communication strategy.',
-    //   results: [
-    //     { metric: 'Engagement Scores', value: '55%', icon: <Heart className="w-5 h-5" /> },
-    //     { metric: 'Leadership Confidence', value: '70%', icon: <Users className="w-5 h-5" /> },
-    //     { metric: 'Cultural Alignment', value: '80%', icon: <Building className="w-5 h-5" /> }
-    //   ],
-    //   tags: ['Merger Integration', 'Leadership Development', 'Cultural Alignment']
-    // },
-    // {
-    //   title: 'Healthcare System Wellness',
-    //   company: 'Regional Medical Center',
-    //   industry: 'Healthcare',
-    //   image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
-    //   challenge: 'Staff burnout and high stress levels impacting patient care quality and employee wellbeing.',
-    //   solution: 'Implemented comprehensive wellness program with mental health support and workload optimization.',
-    //   results: [
-    //     { metric: 'Burnout Reduction', value: '50%', icon: <Heart className="w-5 h-5" /> },
-    //     { metric: 'Sick Days Decrease', value: '35%', icon: <TrendingUp className="w-5 h-5" /> },
-    //     { metric: 'Patient Satisfaction', value: '25%', icon: <Users className="w-5 h-5" /> }
-    //   ],
-    //   tags: ['Employee Wellness', 'Stress Management', 'Healthcare']
-    // },
-    // {
-    //   title: 'Financial Services Modernization',
-    //   company: 'Premier Financial Group',
-    //   industry: 'Financial Services',
-    //   image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600',
-    //   challenge: 'Traditional work culture not adapting to modern employee expectations and remote work needs.',
-    //   solution: 'Modernized HR practices with flexible work arrangements and digital collaboration tools.',
-    //   results: [
-    //     { metric: 'Employee NPS', value: '+45', icon: <Heart className="w-5 h-5" /> },
-    //     { metric: 'Remote Satisfaction', value: '90%', icon: <Users className="w-5 h-5" /> },
-    //     { metric: 'Innovation Index', value: '60%', icon: <TrendingUp className="w-5 h-5" /> }
-    //   ],
-    //   tags: ['Remote Work', 'Digital Transformation', 'Modern Culture']
-    // }
+ 
   ];
 
   const stats = [
