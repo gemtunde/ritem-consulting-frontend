@@ -20,7 +20,8 @@ export default function StaffRecruitment() {
       title: 'Career Consultancy Services',
       company: 'From Ambition to Achievement.',
       industry: 'RKY Careers',
-      image: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/staff-recruitment.jpg',
+     // image: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=600',
       challenge: 'Feeling stuck in a rut and unsure about career progression.',
       solution: 'Through personalized guidance and assessment, we help you gain valuable insights into your unique skill set and potential career paths. Whether you’re a recent graduate exploring your options or a seasoned professional looking to make a career pivot, our experienced consultants are here to provide you with the support and resources you need to make informed decisions about your future.',
       results: [

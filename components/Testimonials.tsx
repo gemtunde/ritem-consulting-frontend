@@ -52,7 +52,7 @@ export default function Testimonials() {
             
             <div className="flex items-center justify-center space-x-4">
               <Image
-                src="https://images.pexels.com/photos/3184431/pexels-photo-3184431.jpeg?auto=compress&cs=tinysrgb&w=100"
+              src="/images/culture.jpeg"
                 alt="Client testimonial"
                 className="w-16 h-16 rounded-full"
                 width={100}

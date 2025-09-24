@@ -75,17 +75,12 @@ export default function ExpertConsultancy() {
               <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-orange-200 to-purple-200 rounded-full opacity-60"></div>
               <div className="grid grid-cols-2 gap-4 relative z-10">
                 <Image
-                  src="https://images.pexels.com/photos/3184433/pexels-photo-3184433.jpeg?auto=compress&cs=tinysrgb&w=300"
-                  alt="HR Expert 1"
+                    src="/images/hrconsult.webp"
+                   alt="HR Expert 1"
                   className="rounded-xl shadow-lg"
                   width={600}
                   height={400}
                 />
-                {/* <img
-                  src="https://images.pexels.com/photos/3184416/pexels-photo-3184416.jpeg?auto=compress&cs=tinysrgb&w=300"
-                  alt="HR Expert 2"
-                  className="rounded-xl shadow-lg mt-8"
-                /> */}
                   <Image
                         src="/images/career-3.jpg"
                       alt='career ritem'

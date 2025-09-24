@@ -20,7 +20,8 @@ export default function Portfolio() {
       title: 'Tech Startup Transformation',
       company: 'InnovateTech Solutions',
       industry: 'Technology',
-      image: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/culture.jpeg',
+     // image: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=600',
       challenge: 'High turnover rate (45%) and low employee satisfaction scores affecting product development.',
       solution: 'Implemented comprehensive culture transformation program with focus on work-life balance and career development.',
       results: [
@@ -34,7 +35,8 @@ export default function Portfolio() {
       title: 'Fortune 500 Engagement Revival',
       company: 'Global Manufacturing Corp',
       industry: 'Manufacturing',
-      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600',
+       image: '/images/wellbeing.jpg',
+     // image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600',
       challenge: 'Post-merger integration challenges leading to decreased morale and conflicting cultures.',
       solution: 'Designed unified culture framework with leadership alignment and comprehensive communication strategy.',
       results: [
@@ -48,7 +50,8 @@ export default function Portfolio() {
       title: 'Healthcare System Wellness',
       company: 'Regional Medical Center',
       industry: 'Healthcare',
-      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
+        image: '/images/career-1.jpg',
+     // image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
       challenge: 'Staff burnout and high stress levels impacting patient care quality and employee wellbeing.',
       solution: 'Implemented comprehensive wellness program with mental health support and workload optimization.',
       results: [
@@ -62,7 +65,8 @@ export default function Portfolio() {
       title: 'Financial Services Modernization',
       company: 'Premier Financial Group',
       industry: 'Financial Services',
-      image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/images/staff-recruitment.jpg',
+     // image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600',
       challenge: 'Traditional work culture not adapting to modern employee expectations and remote work needs.',
       solution: 'Modernized HR practices with flexible work arrangements and digital collaboration tools.',
       results: [

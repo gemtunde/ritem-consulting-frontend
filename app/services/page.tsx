@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Users, Heart, Target, Shield, MessageCircle, TrendingUp, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Services() {
   const [isVisible, setIsVisible] = useState(false);
@@ -187,9 +188,9 @@ export default function Services() {
             <p className="text-xl text-orange-100 mb-8 max-w-2xl mx-auto">
               Let us discuss how our proven strategies can help you create a thriving workplace culture.
             </p>
-            <Button size="lg" variant="secondary" className="bg-white text-orange-500 hover:bg-gray-100">
-              Schedule Free Consultation
-            </Button>
+            <Link href="/contact"  className="bg-white text-orange-500 px-4 py-4 rounded-md hover:bg-gray-100">
+              Schedule Consultation
+            </Link>
           </div>
         </div>
       </section>

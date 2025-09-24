@@ -39,19 +39,19 @@ export default function About() {
     {
       name: 'Hannah Asibor',
       role: 'Founder & CEO',
-      image: 'https://images.pexels.com/photos/3184434/pexels-photo-3184434.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/images/staff-2.webp',
       bio: 'Former Chief People Officer at Fortune 500 company with 15+ years in HR transformation.'
     },
     {
       name: 'Peculiar George Ejire',
       role: 'Director of Employee Engagement',
-      image: 'https://images.pexels.com/photos/3184416/pexels-photo-3184416.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/images/staff-4.webp',
       bio: 'Organizational psychology expert specializing in workplace culture and employee satisfaction.'
     },
     {
       name: 'Aduratimileyin',
       role: 'Senior HR Consultant',
-      image: 'https://images.pexels.com/photos/3184433/pexels-photo-3184433.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/images/staff-5.webp',
       bio: 'Change management specialist with expertise in leadership development and training programs.'
     }
   ];
@@ -99,7 +99,7 @@ export default function About() {
             </div>
             <div className={`transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
              <Image
-               src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600"
+             src="/images/about_us.webp"
                alt="Our story"
                className="rounded-2xl shadow-2xl"
                width={600}

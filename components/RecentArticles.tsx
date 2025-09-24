@@ -30,21 +30,21 @@ export default function RecentArticles() {
 
   const articles = [
     {
-      image: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/images/engagement.jpg',
       title: 'How to Build a Culture of Employee Recognition That Drives Results',
       excerpt: 'Learn proven strategies to create meaningful recognition programs that boost morale and productivity.',
       date: 'March 15, 2024',
       readTime: '8 min read'
     },
     {
-      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/images/culture.jpeg',
       title: 'The Future of Remote Work: Maintaining Connection and Engagement',
       excerpt: 'Discover best practices for keeping remote teams engaged and productive in the evolving workplace.',
       date: 'March 12, 2024',
       readTime: '6 min read'
     },
     {
-      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/images/nurse.jpg',
       title: 'Mental Health in the Workplace: Creating Supportive Environments',
       excerpt: 'Essential strategies for promoting mental wellness and creating psychologically safe workplaces.',
       date: 'March 10, 2024',
