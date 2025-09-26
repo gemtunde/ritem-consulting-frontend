@@ -1,53 +1,55 @@
 import Link from 'next/link';
-import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import {  Linkedin, Facebook, Twitter, Instagram } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Footer() {
   const footerSections = [
     {
-      title: 'Services',
+      title: 'Quick Links',
       links: [
-        { name: 'Employee', href: '/services#surveys' },
-        { name: 'Engagement', href: '/services#engagement' },
-        { name: 'Culture', href: '/services#culture' },
-        { name: 'Leadership', href: '/services#leadership' }
-      ]
-    },
-    {
-      title: 'Resources',
-      links: [
+        { name: 'Home', href: '/' },
+      { name: 'Staff Recruitment', href: '/careers' },
         { name: 'Corporate Training', href: '/resources' },
-        { name: 'Case Studies', href: '/portfolio' },
-        { name: 'Staff Recruitment', href: '/careers' },
+            { name: 'Career Consultancy', href: '/staff' },
+        // { name: 'Culture', href: '/services#culture' },
+        // { name: 'Leadership', href: '/services#leadership' }
       ]
     },
     {
-      title: 'Company',
+      title: 'Contact Information',
       links: [
-        { name: 'About Us', href: '/about' },
-        { name: 'Our Team', href: '/about#team' },
-        { name: 'Careers', href: '/staff' },
+        { name: 'Tell us about your project, make an enquiry to get started.', href: '/' },
+        { name: 'Email: info@ritemconsulting.com', href: '/' },
+        // { name: 'Staff Recruitment', href: '/careers' },
       ]
     },
-    {
-      title: 'Support',
-      links: [
-        { name: 'Contact Us', href: '/contact' },
-        // { name: 'FAQ', href: '/faq' },
-        { name: 'Privacy Policy', href: '/privacy' },
-        { name: 'Terms of Service', href: '/terms' }
-      ]
-    }
+    // {
+    //   title: 'Company',
+    //   links: [
+    //     { name: 'About Us', href: '/about' },
+    //     { name: 'Our Team', href: '/about#team' },
+    //     { name: 'Careers', href: '/staff' },
+    //   ]
+    // },
+    // {
+    //   title: 'Support',
+    //   links: [
+    //     { name: 'Contact Us', href: '/contact' },
+    //     // { name: 'FAQ', href: '/faq' },
+    //     { name: 'Privacy Policy', href: '/privacy' },
+    //     { name: 'Terms of Service', href: '/terms' }
+    //   ]
+    // }
   ];
 
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         {/* Main Footer Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {/* Company Info */}
           <div className="lg:col-span-2">
-              <div className="w-48 h-48 relative transition-all duration-300 ">
+              <div className="w-24 h-24 relative transition-all duration-300 ">
                     <Image
                       src="/logos/logo.png"
                       alt='logo ritem'
@@ -57,14 +59,29 @@ export default function Footer() {
                     />
                   </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Transforming workplace cultures through proven employee engagement strategies. 
-              Helping organizations create thriving environments where people love to work.
+              Transforming workplace cultures through proven  employee <br /> engagement strategies. 
+             <br /> Helping organizations create thriving environments <br /> where people love to work.
             </p>
-            <div className="space-y-3">
-              {/* <div className="flex items-center space-x-3 text-gray-400">
+             <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors duration-200">
+                  <Facebook className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors duration-200">
+                  <Twitter className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors duration-200">
+                  <Linkedin className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors duration-200">
+                  <Instagram className="w-6 h-6" />
+                </a>
+              </div>
+            {/* <div className="space-y-3">
+              <div className="flex items-center space-x-3 text-gray-400">
                 <MapPin className="w-5 h-5 text-orange-500" />
                 <span>123 Business Ave, Suite 100<br />New York, NY 10001</span>
-              </div> */}
+              </div>
               <div className="flex items-center space-x-3 text-gray-400">
                 <Phone className="w-5 h-5 text-orange-500" />
                 <span>(555) 123-4567</span>
@@ -73,7 +90,7 @@ export default function Footer() {
                 <Mail className="w-5 h-5 text-orange-500" />
                 <span>hello@ritemconsulting.com</span>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Footer Links */}
@@ -97,7 +114,7 @@ export default function Footer() {
         </div>
 
         {/* Business Hours */}
-        <div className="border-t border-gray-800 pt-8 mb-8">
+        {/* <div className="border-t border-gray-800 pt-8 mb-8">
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="font-semibold text-lg mb-4">Business Hours</h3>
@@ -134,7 +151,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">

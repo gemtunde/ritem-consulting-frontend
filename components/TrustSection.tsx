@@ -49,7 +49,7 @@ export default function TrustSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            We Have Proudly Unlocked Over 500 Workplaces
+            About us
           </h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
             Trusted by leading organizations worldwide to transform their workplace culture and drive measurable results.
@@ -64,48 +64,7 @@ export default function TrustSection() {
             <span className="ml-2 text-sm font-medium text-gray-600">4.9 from Reviews</span>
           </div>
         </div>
-
-        {/* Logo Carousel */}
-        <div className="relative">
-          <div className="flex overflow-hidden">
-            <div className="flex animate-scroll">
-              {/* First set of logos */}
-              {companies.map((company, index) => (
-                <div
-                  key={`first-${company.name}`}
-                  className="flex-shrink-0 mx-8 flex items-center justify-center"
-                >
-                  <div className="w-32 h-16 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
-                    <Image
-                      src={company.logo}
-                      alt={`${company.name} logo`}
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 128px) 100vw, 128px"
-                    />
-                  </div>
-                </div>
-              ))}
-              {/* Duplicate set for seamless loop */}
-              {companies.map((company, index) => (
-                <div
-                  key={`second-${company.name}`}
-                  className="flex-shrink-0 mx-8 flex items-center justify-center"
-                >
-                  <div className="w-32 h-16 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
-                    <Image
-                      src={company.logo}
-                      alt={`${company.name} logo`}
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 128px) 100vw, 128px"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+       
       </div>
 
       <style jsx>{`

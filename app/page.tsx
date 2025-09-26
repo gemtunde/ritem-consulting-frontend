@@ -7,6 +7,7 @@ import ExpertConsultancy from '@/components/ExpertConsultancy';
 import ROISection from '@/components/ROISection';
 import Testimonials from '@/components/Testimonials';
 import RecentArticles from '@/components/RecentArticles';
+import CarouselSection from '@/components/CarouselSection';
 
 export default function Home() {
   return (
@@ -14,12 +15,13 @@ export default function Home() {
       <Hero />
       <TrustSection />
       <ChallengesSection />
-      <WhyWorkWithUs />
-      <ServicesSection />
-      <ExpertConsultancy />
+      {/* <WhyWorkWithUs /> */}
+      {/* <ServicesSection /> */}
+      {/* <ExpertConsultancy /> */}
       <ROISection />
       <Testimonials />
-      <RecentArticles />
+      {/* <RecentArticles /> */}
+      <CarouselSection />
     </div>
   );
 }

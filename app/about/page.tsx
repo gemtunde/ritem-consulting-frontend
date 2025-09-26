@@ -15,24 +15,24 @@ export default function About() {
   const values = [
     {
       icon: <Users className="w-8 h-8" />,
-      title: 'People-Centered',
+      title: 'Mission',
       description: 'We believe that people are the heart of every successful organization.'
     },
     {
       icon: <Target className="w-8 h-8" />,
-      title: 'Results-Driven',
+      title: 'Vision',
       description: 'Our strategies are designed to deliver measurable, sustainable outcomes.'
     },
     {
       icon: <Award className="w-8 h-8" />,
-      title: 'Excellence',
+      title: 'Core Values',
       description: 'We maintain the highest standards in everything we do.'
     },
-    {
-      icon: <Globe className="w-8 h-8" />,
-      title: 'Global Perspective',
-      description: 'Our solutions are informed by worldwide best practices and trends.'
-    }
+    // {
+    //   icon: <Globe className="w-8 h-8" />,
+    //   title: 'Global Perspective',
+    //   description: 'Our solutions are informed by worldwide best practices and trends.'
+    // }
   ];
 
   const team = [
@@ -59,7 +59,7 @@ export default function About() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-orange-50 to-purple-50 py-20">
+      {/* <section className="bg-gradient-to-r from-orange-50 to-purple-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
@@ -71,7 +71,7 @@ export default function About() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Story Section */}
       <section className="py-20 bg-white">
@@ -79,7 +79,7 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className={`transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                Our Story
+                About Us
               </h2>
               <div className="space-y-6 text-gray-600 leading-relaxed">
                 <p>
@@ -113,16 +113,16 @@ export default function About() {
       {/* Values Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-16 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          {/* <div className={`text-center mb-16 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Our Core Values
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               These fundamental principles guide everything we do and shape how we work with our clients.
             </p>
-          </div>
+          </div> */}
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {values.map((value, index) => (
               <Card
                 key={value.title}
