@@ -8,8 +8,9 @@ import { Separator } from '@/components/ui/separator';
 import { MapPin, Clock, Briefcase, Calendar, Building, Users, Heart, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+// Define types matching your Sanity structure
 interface Job {
-  id: string;
+  _id: string;
   title: string;
   company: string;
   location: string;
@@ -24,7 +25,7 @@ interface Job {
   responsibilities: string[];
   postedDate: string;
   closingDate: string;
-  isUrgent?: boolean;
+  isUrgent: boolean;
   companyDescription: string;
   teamSize: string;
   reportingTo: string;
@@ -40,6 +41,16 @@ export default function JobDetailsClient({ job }: JobDetailsClientProps) {
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  // Format date function
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -79,7 +90,7 @@ export default function JobDetailsClient({ job }: JobDetailsClientProps) {
                   </div>
                   <div className="flex items-center space-x-1">
                     <Calendar className="w-4 h-4" />
-                    <span>Closes: {new Date(job.closingDate).toLocaleDateString('en-GB')}</span>
+                    <span>Closes: {formatDate(job.closingDate)}</span>
                   </div>
                 </div>
               </div>
@@ -90,13 +101,13 @@ export default function JobDetailsClient({ job }: JobDetailsClientProps) {
                 </div>
                 <div className="flex flex-col space-y-3">
                   <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600">
-                    <Link href={`/jobs/${job.id}/apply`}>
+                    <Link href={`/jobs/${job._id}/apply`}>
                       Apply Now
                     </Link>
                   </Button>
-                  <Button variant="outline" size="lg">
+                  {/* <Button variant="outline" size="lg">
                     Save Job
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
             </div>
@@ -113,47 +124,53 @@ export default function JobDetailsClient({ job }: JobDetailsClientProps) {
               {/* Job Description */}
               <Card className={`p-8 transform transition-all duration-1000 delay-200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Job Description</h2>
-                <p className="text-gray-700 leading-relaxed">{job.description}</p>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-line">{job.description}</p>
               </Card>
 
               {/* Key Responsibilities */}
-              <Card className={`p-8 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Key Responsibilities</h2>
-                <ul className="space-y-3">
-                  {job.responsibilities.map((responsibility, index) => (
-                    <li key={index} className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-gray-700">{responsibility}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+              {job.responsibilities && job.responsibilities.length > 0 && (
+                <Card className={`p-8 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Key Responsibilities</h2>
+                  <ul className="space-y-3">
+                    {job.responsibilities.map((responsibility, index) => (
+                      <li key={index} className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <span className="text-gray-700">{responsibility}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
 
               {/* Requirements */}
-              <Card className={`p-8 transform transition-all duration-1000 delay-400 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Requirements</h2>
-                <ul className="space-y-3">
-                  {job.requirements.map((requirement, index) => (
-                    <li key={index} className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-gray-700">{requirement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+              {job.requirements && job.requirements.length > 0 && (
+                <Card className={`p-8 transform transition-all duration-1000 delay-400 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Requirements</h2>
+                  <ul className="space-y-3">
+                    {job.requirements.map((requirement, index) => (
+                      <li key={index} className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <span className="text-gray-700">{requirement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
 
               {/* Benefits */}
-              <Card className={`p-8 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Benefits & Perks</h2>
-                <ul className="space-y-3">
-                  {job.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start space-x-3">
-                      <Heart className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+              {job.benefits && job.benefits.length > 0 && (
+                <Card className={`p-8 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Benefits & Perks</h2>
+                  <ul className="space-y-3">
+                    {job.benefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start space-x-3">
+                        <Heart className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
             </div>
 
             {/* Sidebar */}
@@ -187,7 +204,7 @@ export default function JobDetailsClient({ job }: JobDetailsClientProps) {
                   <Separator />
                   <div>
                     <p className="text-sm text-gray-500 mb-1">Posted Date</p>
-                    <p className="font-medium">{new Date(job.postedDate).toLocaleDateString('en-GB')}</p>
+                    <p className="font-medium">{formatDate(job.postedDate)}</p>
                   </div>
                 </div>
               </Card>
@@ -205,10 +222,10 @@ export default function JobDetailsClient({ job }: JobDetailsClientProps) {
               <Card className={`p-6 bg-orange-50 border-orange-200 transform transition-all duration-1000 delay-800 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">Ready to Apply?</h3>
                 <p className="text-gray-600 mb-4">
-                  Do not miss out on this opportunity. Applications close on {new Date(job.closingDate).toLocaleDateString('en-GB')}.
+                  Do not miss out on this opportunity. Applications close on {formatDate(job.closingDate)}.
                 </p>
                 <Button asChild className="w-full bg-orange-500 hover:bg-orange-600">
-                  <Link href={`/jobs/${job.id}/apply`}>
+                  <Link href={`/jobs/${job._id}/apply`}>
                     Apply Now
                   </Link>
                 </Button>

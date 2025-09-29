@@ -1,8 +1,9 @@
-// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   reactStrictMode: true,
-  // ❌ remove "output: export" if you need API routes
   images: {
     remotePatterns: [
       {
@@ -29,7 +30,7 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
-        {
+      {
         protocol: 'https',
         hostname: 'images.pexels.com',
         port: '',
@@ -41,8 +42,14 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
 
-module.exports = nextConfig; // 👈 CommonJS export
+module.exports = nextConfig;

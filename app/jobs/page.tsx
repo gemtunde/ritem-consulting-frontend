@@ -1,16 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, MapPin, Clock, Briefcase, Filter, ChevronRight } from 'lucide-react';
+import { Search, MapPin, Clock, Briefcase, Filter, ChevronRight, Building } from 'lucide-react';
 import Link from 'next/link';
+import { useJobs } from '@/hooks/useContent';
 
+// Define types
 interface Job {
-  id: string;
+  _id: string;
   title: string;
   company: string;
   location: string;
@@ -24,166 +26,162 @@ interface Job {
   benefits: string[];
   postedDate: string;
   closingDate: string;
-  isUrgent?: boolean;
+  isUrgent: boolean;
+  companyDescription: string;
+  teamSize: string;
+  reportingTo: string;
+  responsibilities: string[];
 }
 
+interface FilterState {
+  searchTerm: string;
+  selectedSector: string;
+  selectedCountry: string;
+  selectedContractType: string;
+  selectedJobType: string;
+}
+
+interface JobsPageProps {}
+
 export default function Jobs() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedSector, setSelectedSector] = useState('all');
-  const [selectedCountry, setSelectedCountry] = useState('all');
-  const [selectedContractType, setSelectedContractType] = useState('all');
-  const [selectedJobType, setSelectedJobType] = useState('all');
-  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [filters, setFilters] = useState<FilterState>({
+    searchTerm: '',
+    selectedSector: 'all',
+    selectedCountry: 'all',
+    selectedContractType: 'all',
+    selectedJobType: 'all'
+  });
+
+  const { data: jobsData, isLoading, error } = useJobs();
+
+  console.log("jobs data", jobsData);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const jobs: Job[] = [
-    {
-      id: '1',
-      title: 'Senior HR Business Partner',
-      company: 'TechCorp Solutions',
-      location: 'London',
-      country: 'England',
-      sector: 'Technology',
-      contractType: 'Permanent',
-      jobType: 'HR Specialist',
-      salary: '£65,000 - £80,000',
-      description: 'Lead strategic HR initiatives and partner with business leaders to drive organizational success.',
-      requirements: ['5+ years HR experience', 'CIPD qualification', 'Business partnering experience'],
-      benefits: ['Private healthcare', 'Pension scheme', 'Flexible working'],
-      postedDate: '2024-03-15',
-      closingDate: '2024-04-15',
-      isUrgent: true
-    },
-    {
-      id: '2',
-      title: 'Frontend Developer',
-      company: 'Digital Innovations Ltd',
-      location: 'Edinburgh',
-      country: 'Scotland',
-      sector: 'Technology',
-      contractType: 'Contract',
-      jobType: 'Frontend Developer',
-      salary: '£450 - £550 per day',
-      description: 'Build responsive web applications using React, TypeScript, and modern frontend technologies.',
-      requirements: ['React expertise', 'TypeScript proficiency', '3+ years experience'],
-      benefits: ['Remote working', 'Professional development', 'Modern tech stack'],
-      postedDate: '2024-03-14',
-      closingDate: '2024-04-10'
-    },
-    {
-      id: '3',
-      title: 'Registered Nurse - ICU',
-      company: 'Cardiff University Hospital',
-      location: 'Cardiff',
-      country: 'Wales',
-      sector: 'Healthcare',
-      contractType: 'Permanent',
-      jobType: 'Nurse',
-      salary: '£28,000 - £35,000',
-      description: 'Provide critical care nursing in our state-of-the-art intensive care unit.',
-      requirements: ['NMC registration', 'ICU experience preferred', 'BLS certification'],
-      benefits: ['NHS pension', 'Professional development', 'Flexible shifts'],
-      postedDate: '2024-03-13',
-      closingDate: '2024-04-05',
-      isUrgent: true
-    },
-    {
-      id: '4',
-      title: 'Backend Developer',
-      company: 'FinTech Innovations',
-      location: 'Belfast',
-      country: 'Northern Ireland',
-      sector: 'Financial Services',
-      contractType: 'Permanent',
-      jobType: 'Backend Developer',
-      salary: '£55,000 - £70,000',
-      description: 'Develop scalable backend systems for our financial technology platform.',
-      requirements: ['Node.js/Python expertise', 'Database design', 'API development'],
-      benefits: ['Stock options', 'Learning budget', 'Hybrid working'],
-      postedDate: '2024-03-12',
-      closingDate: '2024-04-12'
-    },
-    {
-      id: '5',
-      title: 'Consultant Physician',
-      company: 'Royal Hospital Trust',
-      location: 'Manchester',
-      country: 'England',
-      sector: 'Healthcare',
-      contractType: 'Permanent',
-      jobType: 'Doctor',
-      salary: '£88,000 - £120,000',
-      description: 'Lead clinical services and provide expert medical care in internal medicine.',
-      requirements: ['GMC registration', 'CCT in Internal Medicine', 'Leadership experience'],
-      benefits: ['Private practice rights', 'Research opportunities', 'Excellent pension'],
-      postedDate: '2024-03-11',
-      closingDate: '2024-04-20'
-    },
-    {
-      id: '6',
-      title: 'Marketing Manager',
-      company: 'Creative Agency Plus',
-      location: 'Dublin',
-      country: 'Ireland',
-      sector: 'Marketing',
-      contractType: 'Permanent',
-      jobType: 'Marketing Specialist',
-      salary: '€50,000 - €65,000',
-      description: 'Drive marketing strategy and campaigns for our diverse client portfolio.',
-      requirements: ['Digital marketing expertise', '5+ years experience', 'Team leadership'],
-      benefits: ['Performance bonus', 'Creative environment', 'Career progression'],
-      postedDate: '2024-03-10',
-      closingDate: '2024-04-08'
-    }
-  ];
-
-  const sectors = ['Technology', 'Healthcare', 'Financial Services', 'Marketing', 'Education', 'Manufacturing'];
-  const countries = ['England', 'Scotland', 'Wales', 'Northern Ireland', 'Ireland'];
-  const contractTypes = ['Permanent', 'Contract', 'Temporary', 'Part-time'];
-  const jobTypes = ['Frontend Developer', 'Backend Developer', 'HR Specialist', 'Doctor', 'Nurse', 'Marketing Specialist', 'Data Analyst', 'Project Manager'];
-
-  useEffect(() => {
-    let filtered = jobs;
-
-    if (searchTerm) {
-      filtered = filtered.filter(job =>
-        job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.location.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+  // Extract unique values for filters from jobs data
+  const filterOptions = useMemo(() => {
+    if (!jobsData) {
+      return {
+        sectors: [],
+        countries: [],
+        contractTypes: [],
+        jobTypes: []
+      };
     }
 
-    if (selectedSector !== 'all') {
-      filtered = filtered.filter(job => job.sector === selectedSector);
-    }
+    const sectors = Array.from(new Set(jobsData.map((job: Job) => job.sector))).filter(Boolean);
+    const countries = Array.from(new Set(jobsData.map((job: Job) => job.country))).filter(Boolean);
+    const contractTypes = Array.from(new Set(jobsData.map((job: Job) => job.contractType))).filter(Boolean);
+    const jobTypes = Array.from(new Set(jobsData.map((job: Job) => job.jobType))).filter(Boolean);
 
-    if (selectedCountry !== 'all') {
-      filtered = filtered.filter(job => job.country === selectedCountry);
-    }
+    return {
+      sectors: sectors as string[],
+      countries: countries as string[],
+      contractTypes: contractTypes as string[],
+      jobTypes: jobTypes as string[]
+    };
+  }, [jobsData]);
 
-    if (selectedContractType !== 'all') {
-      filtered = filtered.filter(job => job.contractType === selectedContractType);
-    }
+  // Filter jobs based on current filters
+  const filteredJobs = useMemo(() => {
+    if (!jobsData) return [];
 
-    if (selectedJobType !== 'all') {
-      filtered = filtered.filter(job => job.jobType === selectedJobType);
-    }
+    return jobsData.filter((job: Job) => {
+      const matchesSearch = filters.searchTerm === '' || 
+        job.title.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+        job.company.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+        job.location.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+        job.description.toLowerCase().includes(filters.searchTerm.toLowerCase());
 
-    setFilteredJobs(filtered);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ searchTerm, selectedSector, selectedCountry, selectedContractType, selectedJobType]);
+      const matchesSector = filters.selectedSector === 'all' || job.sector === filters.selectedSector;
+      const matchesCountry = filters.selectedCountry === 'all' || job.country === filters.selectedCountry;
+      const matchesContractType = filters.selectedContractType === 'all' || job.contractType === filters.selectedContractType;
+      const matchesJobType = filters.selectedJobType === 'all' || job.jobType === filters.selectedJobType;
+
+      return matchesSearch && matchesSector && matchesCountry && matchesContractType && matchesJobType;
+    });
+  }, [jobsData, filters]);
+
+  const updateFilter = (key: keyof FilterState, value: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
 
   const clearFilters = () => {
-    setSearchTerm('');
-    setSelectedSector('all');
-    setSelectedCountry('all');
-    setSelectedContractType('all');
-    setSelectedJobType('all');
+    setFilters({
+      searchTerm: '',
+      selectedSector: 'all',
+      selectedCountry: 'all',
+      selectedContractType: 'all',
+      selectedJobType: 'all'
+    });
   };
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen">
+        <section className="bg-gradient-to-r from-orange-50 to-purple-50 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center animate-pulse">
+              <div className="h-12 bg-gray-300 rounded w-64 mx-auto mb-6"></div>
+              <div className="h-6 bg-gray-300 rounded w-96 mx-auto"></div>
+            </div>
+          </div>
+        </section>
+        <section className="py-8 bg-white border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="space-y-6 animate-pulse">
+              <div className="h-12 bg-gray-300 rounded max-w-2xl mx-auto"></div>
+              <div className="grid md:grid-cols-4 gap-4">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="h-10 bg-gray-300 rounded"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <Card key={i} className="p-6 animate-pulse">
+                  <div className="h-6 bg-gray-300 rounded mb-4 w-3/4"></div>
+                  <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-300 rounded mb-4 w-1/2"></div>
+                  <div className="h-20 bg-gray-300 rounded mb-4"></div>
+                  <div className="h-8 bg-gray-300 rounded"></div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600">Error loading job listings</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
@@ -216,57 +214,57 @@ export default function Jobs() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input
                 placeholder="Search jobs, companies, or locations..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                value={filters.searchTerm}
+                onChange={(e) => updateFilter('searchTerm', e.target.value)}
                 className="pl-10 h-12 text-lg"
               />
             </div>
 
             {/* Filters */}
             <div className="grid md:grid-cols-4 gap-4">
-              <Select value={selectedSector} onValueChange={setSelectedSector}>
+              <Select value={filters.selectedSector} onValueChange={(value) => updateFilter('selectedSector', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="All Sectors" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Sectors</SelectItem>
-                  {sectors.map(sector => (
+                  {filterOptions.sectors.map((sector: string) => (
                     <SelectItem key={sector} value={sector}>{sector}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
 
-              <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+              <Select value={filters.selectedCountry} onValueChange={(value) => updateFilter('selectedCountry', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="All Countries" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Countries</SelectItem>
-                  {countries.map(country => (
+                  {filterOptions.countries.map((country: string) => (
                     <SelectItem key={country} value={country}>{country}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
 
-              <Select value={selectedContractType} onValueChange={setSelectedContractType}>
+              <Select value={filters.selectedContractType} onValueChange={(value) => updateFilter('selectedContractType', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Contract Type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Contract Types</SelectItem>
-                  {contractTypes.map(type => (
+                  {filterOptions.contractTypes.map((type: string) => (
                     <SelectItem key={type} value={type}>{type}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
 
-              <Select value={selectedJobType} onValueChange={setSelectedJobType}>
+              <Select value={filters.selectedJobType} onValueChange={(value) => updateFilter('selectedJobType', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Job Type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Job Types</SelectItem>
-                  {jobTypes.map(type => (
+                  {filterOptions.jobTypes.map((type: string) => (
                     <SelectItem key={type} value={type}>{type}</SelectItem>
                   ))}
                 </SelectContent>
@@ -284,7 +282,7 @@ export default function Jobs() {
         </div>
       </section>
 
-      {/* Jobs Listing */}
+      {/* Jobs Listing - Grid Layout */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredJobs.length === 0 ? (
@@ -296,84 +294,15 @@ export default function Jobs() {
               <p className="text-gray-600">Try adjusting your search criteria or filters.</p>
             </div>
           ) : (
-            <div className="space-y-6">
-              {filteredJobs.map((job, index) => (
-                <Card
-                  key={job.id}
-                  className={`p-6 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 transform ${
-                    isVisible 
-                      ? 'translate-y-0 opacity-100' 
-                      : 'translate-y-10 opacity-0'
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <div className="flex items-center space-x-3 mb-2">
-                            <h3 className="text-xl font-bold text-gray-900">{job.title}</h3>
-                            {job.isUrgent && (
-                              <Badge className="bg-red-100 text-red-700">Urgent</Badge>
-                            )}
-                          </div>
-                          <p className="text-lg text-gray-700 font-medium">{job.company}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-lg font-bold text-orange-500">{job.salary}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-600">
-                        <div className="flex items-center space-x-1">
-                          <MapPin className="w-4 h-4" />
-                          <span>{job.location}, {job.country}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{job.contractType}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Briefcase className="w-4 h-4" />
-                          <span>{job.jobType}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        <Badge variant="outline">{job.sector}</Badge>
-                        <Badge variant="outline">{job.contractType}</Badge>
-                        <Badge variant="outline">{job.jobType}</Badge>
-                      </div>
-
-                      <p className="text-gray-600 leading-relaxed mb-4 line-clamp-2">
-                        {job.description}
-                      </p>
-
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm text-gray-500">
-                          Posted: {new Date(job.postedDate).toLocaleDateString()}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          Closes: {new Date(job.closingDate).toLocaleDateString()}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 lg:mt-0 lg:ml-6 flex flex-col space-y-3">
-                      <Button asChild className="bg-orange-500 hover:bg-orange-600">
-                        <Link href={`/jobs/${job.id}`}>
-                          View Details
-                          <ChevronRight className="ml-2 w-4 h-4" />
-                        </Link>
-                      </Button>
-                      <Button asChild variant="outline">
-                        <Link href={`/jobs/${job.id}/apply`}>
-                          Quick Apply
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredJobs.map((job: Job, index: number) => (
+                <JobCard 
+                  key={job._id}
+                  job={job}
+                  index={index}
+                  isVisible={isVisible}
+                  formatDate={formatDate}
+                />
               ))}
             </div>
           )}
@@ -399,3 +328,92 @@ export default function Jobs() {
     </div>
   );
 }
+
+// Job Card Component
+interface JobCardProps {
+  job: Job;
+  index: number;
+  isVisible: boolean;
+  formatDate: (dateString: string) => string;
+}
+
+const JobCard: React.FC<JobCardProps> = ({ job, index, isVisible, formatDate }) => {
+  return (
+    <Card
+      className={`group p-6 border-0 shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 transform ${
+        isVisible 
+          ? 'translate-y-0 opacity-100' 
+          : 'translate-y-10 opacity-0'
+      } ${job.isUrgent ? 'border-l-4 border-red-500' : ''}`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <Link href={`/jobs/${job._id}`} className="block h-full">
+        {/* Urgent Badge */}
+        {job.isUrgent && (
+          <div className="inline-flex items-center px-3 py-1 bg-red-100 text-red-800 text-sm font-medium rounded-full mb-4">
+            <Clock className="w-3 h-3 mr-1" />
+            Urgent Hiring
+          </div>
+        )}
+
+        {/* Job Title */}
+        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300 line-clamp-2">
+          {job.title}
+        </h3>
+
+        {/* Company Info */}
+        <div className="flex items-center text-gray-600 mb-3">
+          <Building className="w-4 h-4 mr-2" />
+          <span className="font-medium">{job.company}</span>
+        </div>
+
+        {/* Location */}
+        <div className="flex items-center text-gray-600 mb-3">
+          <MapPin className="w-4 h-4 mr-2" />
+          <span>{job.location}, {job.country}</span>
+        </div>
+
+        {/* Job Details */}
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          <div className="text-sm">
+            <span className="font-medium text-gray-900">Sector:</span>
+            <span className="text-gray-600 ml-1">{job.sector}</span>
+          </div>
+          <div className="text-sm">
+            <span className="font-medium text-gray-900">Type:</span>
+            <span className="text-gray-600 ml-1">{job.contractType}</span>
+          </div>
+          <div className="text-sm">
+            <span className="font-medium text-gray-900">Salary:</span>
+            <span className="text-gray-600 ml-1">{job.salary}</span>
+          </div>
+          <div className="text-sm">
+            <span className="font-medium text-gray-900">Role:</span>
+            <span className="text-gray-600 ml-1">{job.jobType}</span>
+          </div>
+        </div>
+
+        {/* Job Description */}
+        <p className="text-gray-600 leading-relaxed line-clamp-3 mb-4">
+          {job.description}
+        </p>
+
+        {/* Posted Date */}
+        <div className="flex items-center text-sm text-gray-500 mb-4">
+          <Clock className="w-4 h-4 mr-2" />
+          <span>Posted: {formatDate(job.postedDate)}</span>
+        </div>
+
+        {/* View Details CTA */}
+        <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+          <span className="text-sm text-orange-600 font-medium group-hover:text-orange-700 transition-colors duration-300">
+            View Details →
+          </span>
+          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+            {job.teamSize} team members
+          </span>
+        </div>
+      </Link>
+    </Card>
+  );
+};

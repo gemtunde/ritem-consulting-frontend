@@ -13,32 +13,8 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { jobApplicationSchema } from '@/lib/schemas/validations';
 
-// Zod validation schema
-// export const jobApplicationSchema = z.object({
-//   //id: z.string().optional(),
-//  // title: z.string().min(1, 'Job title is required'),
-//   firstName: z.string().min(1, 'First name is required'),
-//   lastName: z.string().min(1, 'Last name is required'),
-//   email: z.string().email('Please enter a valid email address'),
-//   phone: z.string().min(1, 'Phone number is required'),
-//   address: z.string().min(1, 'Address is required'),
-//   city: z.string().min(1, 'City is required'),
-//   country: z.string().min(1, 'Country is required'),
-//   currentRole: z.string().optional(),
-//   currentCompany: z.string().optional(),
-//   experience: z.string().min(1, 'Years of experience is required'),
-//   noticePeriod: z.string().min(1, 'Notice period is required'),
-//   salaryExpectation: z.string().optional(),
-//   skills: z.string().min(1, 'Skills are required'),
-//   motivation: z.string().min(1, 'Motivation is required'),
-//   availability: z.string().min(1, 'Availability is required'),
-//   questions: z.string().optional(),
-//   terms: z.boolean().refine(val => val === true, 'You must agree to the terms'),
-//   marketing: z.boolean().optional(),
-// });
-
 interface Job {
-  id: string;
+  _id: string;
   title: string;
   company: string;
   location: string;
@@ -149,75 +125,7 @@ export default function JobApplicationClient({ job }: JobApplicationClientProps)
     }
   };
 
-  // Handle form submission
-//   const handleSubmit = async (event: React.FormEvent) => {
-//     event.preventDefault();
-//      console.log('Submit button clicked!'); // Add this
-//     setIsSubmitting(true);
-//     setSubmitError('');
-
-//     try {
-//       // Validate form data with Zod
-//       const validatedData = jobApplicationSchema.parse(formData);
-
-//       // Check if CV is uploaded (required)
-//       if (!cvFile) {
-//         setErrors(prev => ({ ...prev, cv: 'CV/Resume is required' }));
-//         setIsSubmitting(false);
-//         return;
-//       }
-
-//       // Create FormData for file upload
-//       const formDataToSend = new FormData();
-      
-//       // Add all form fields
-//       Object.entries(validatedData).forEach(([key, value]) => {
-//         formDataToSend.append(key, String(value));
-//       });
-
-//       // Add job details
-//       formDataToSend.append('id', job.id);
-//       formDataToSend.append('title', job.title);
-
-//       // Add files
-//       formDataToSend.append('cv', cvFile);
-//       if (coverLetterFile) {
-//         formDataToSend.append('coverLetter', coverLetterFile);
-//       }
-// //console.log('Submitting form data:', formDataToSend);
-// for (const [key, value] of formDataToSend.entries()) {
-//   console.log(key, value);
-// }
-//       // Submit to API
-//       const response = await fetch('/api/apply', {
-//         method: 'POST',
-//         body: formDataToSend,
-//       });
-
-//       const result = await response.json();
-
-//       if (result.success) {
-//         setIsSubmitted(true);
-//       } else {
-//         setSubmitError(result.error || 'Failed to submit application. Please try again.');
-//       }
-//     } catch (error) {
-//       if (error instanceof z.ZodError) {
-//         // Handle Zod validation errors
-//         const validationErrors: { [key: string]: string } = {};
-//         error.errors.forEach((err) => {
-//           if (err.path.length > 0) {
-//             validationErrors[err.path[0]] = err.message;
-//           }
-//         });
-//         setErrors(validationErrors);
-//       } else {
-//         setSubmitError('An unexpected error occurred. Please try again.');
-//       }
-//     } finally {
-//       setIsSubmitting(false);
-//     }
-//   };
+  
 const handleSubmit = async (event: React.FormEvent) => {
   event.preventDefault();
   console.log('Submit button clicked!');
@@ -250,7 +158,7 @@ const handleSubmit = async (event: React.FormEvent) => {
     });
 
     // Add job details (title comes from job prop, not form)
-    formDataToSend.append('jobId', job.id);
+    formDataToSend.append('jobId', job._id);
     formDataToSend.append('jobTitle', job.title);
 
     // Add files
@@ -319,7 +227,7 @@ const handleSubmit = async (event: React.FormEvent) => {
               <Link href="/jobs">Browse More Jobs</Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link href={`/jobs/${job.id}`}>Back to Job Details</Link>
+              <Link href={`/jobs/${job._id}`}>Back to Job Details</Link>
             </Button>
           </div>
         </Card>
@@ -334,7 +242,7 @@ const handleSubmit = async (event: React.FormEvent) => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <Button asChild variant="ghost" className="mb-4">
-              <Link href={`/jobs/${job.id}`}>
+              <Link href={`/jobs/${job._id}`}>
                 <ArrowLeft className="mr-2 w-4 h-4" />
                 Back to Job Details
               </Link>

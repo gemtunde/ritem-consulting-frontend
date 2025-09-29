@@ -1,20 +1,21 @@
 import Hero from '@/components/Hero';
-import TrustSection from '@/components/TrustSection';
-import ChallengesSection from '@/components/ChallengesSection';
-import ServicesSection from '@/components/ServicesSection';
-import WhyWorkWithUs from '@/components/WhyWorkWithUs';
-import ExpertConsultancy from '@/components/ExpertConsultancy';
+import AboutUsSection from '@/components/AboutUsSection';
+import JobSection from '@/components/JobSection';
+//import ServicesSection from '@/components/ServicesSection';
+//mport WhyWorkWithUs from '@/components/WhyWorkWithUs';
+//import ExpertConsultancy from '@/components/ExpertConsultancy';
 import ROISection from '@/components/ROISection';
 import Testimonials from '@/components/Testimonials';
-import RecentArticles from '@/components/RecentArticles';
+//import RecentArticles from '@/components/RecentArticles';
 import CarouselSection from '@/components/CarouselSection';
+//import AboutUsSection from '@/components/AboutUsSection';
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Hero />
-      <TrustSection />
-      <ChallengesSection />
+      <AboutUsSection />
+      <JobSection />
       {/* <WhyWorkWithUs /> */}
       {/* <ServicesSection /> */}
       {/* <ExpertConsultancy /> */}

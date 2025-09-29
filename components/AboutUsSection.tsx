@@ -1,10 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Star } from 'lucide-react';
-import Image from 'next/image';
+//import Image from 'next/image';
+import { useAboutUs } from '@/hooks/useContent';
 
-export default function TrustSection() {
+export default function AboutUsSection() {
   const [isVisible, setIsVisible] = useState(false);
+    const { data: aboutUs, isLoading, error, isError } = useAboutUs();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,26 +26,32 @@ export default function TrustSection() {
     return () => observer.disconnect();
   }, []);
 
-  const companies = [
+ if (isLoading) {
+    return (
+      <section className="relative bg-gradient-to-r from-orange-50 to-purple-50 py-20 lg:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="animate-pulse">
+            <div className="h-12 bg-gray-300 rounded mb-4"></div>
+            <div className="h-6 bg-gray-300 rounded mb-8"></div>
+            <div className="flex space-x-4">
+              <div className="h-12 w-32 bg-gray-300 rounded"></div>
+              <div className="h-12 w-32 bg-gray-300 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
-    { name: 'Microsoft', logo: '/logos/microsoft.png' },
-    { name: 'Buddy', logo: '/logos/buddy.png' },
-    { name: 'Bis', logo: '/logos/bis.png' },
-    { name: 'myStep', logo: '/logos/mystep.png' },
-    { name: 'RKYCareers', logo: '/logos/rky.jpg' },
-
-
-    { name: 'Google', logo: '/logos/google.png' },
-    { name: 'Yahoo', logo: '/logos/yahoo.png' },
-    { name: 'Amazon', logo: '/logos/amazon.png' },
-    // { name: 'Meta', logo: '/logos/meta.png' },
-    { name: 'Netflix', logo: '/logos/netflix.png' },
-    { name: 'Spotify', logo: '/logos/spotify.png' },
-    // { name: 'Adobe', logo: '/logos/adobe.png' },
-    { name: 'Tesla', logo: '/logos/tesla.png' },
-    // { name: 'Salesforce', logo: '/logos/salesforce.png' },
-  ];
-
+  if (error) {
+    return (
+      <section className="relative bg-gradient-to-r from-orange-50 to-purple-50 py-20 lg:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-red-600">Error loading hero content</p>
+        </div>
+      </section>
+    );
+  }
   return (
     <section id="trust-section" className="py-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,8 +60,9 @@ export default function TrustSection() {
             About us
           </h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Trusted by leading organizations worldwide to transform their workplace culture and drive measurable results.
-          </p>
+          {aboutUs?.description || 'RITEM Consulting is a leading HR consultancy firm dedicated to transforming workplaces and empowering organizations to achieve their full potential. Founded in 2020, we have quickly established ourselves as a trusted partner for businesses seeking innovative HR solutions that drive growth and success.'}
+             
+           </p>
           
           <div className="flex items-center justify-center mb-12">
             <div className="flex items-center space-x-1">
