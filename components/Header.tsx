@@ -25,8 +25,8 @@ export default function Header() {
       name: 'Candidates',
       submenu: [
         // { name: 'Upload CV', href: '/candidates/upload-cv' },
-        { name: 'Jobs', href: '/' },
-        // { name: 'Jobs', href: '/jobs' },
+        // { name: 'Jobs', href: '/' },
+        { name: 'Jobs', href: '/jobs' },
       ],
     },
     { name: 'Contact Us', href: '/contact' },

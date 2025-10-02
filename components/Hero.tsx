@@ -98,7 +98,7 @@ export default function Hero() {
               className="bg-orange-500 hover:bg-orange-600"
             >
               <Link href="/contact">{
-                hero?.ctaText || 'Apply Now'
+                hero?.ctaText || 'Apply now'
               } </Link>
             </Button>
           </div>

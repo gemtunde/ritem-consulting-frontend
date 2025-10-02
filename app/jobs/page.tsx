@@ -310,7 +310,7 @@ export default function Jobs() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-orange-500">
+      <section className="py-20 bg-purple-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
@@ -320,7 +320,9 @@ export default function Jobs() {
               Let us help you find your perfect career opportunity. Upload your CV and we will match you with suitable positions.
             </p>
             <Button size="lg" variant="secondary" className="bg-white text-orange-500 hover:bg-gray-100">
-              Upload Your CV
+             <Link href="/cv-upload">
+               Upload Your CV
+            </Link>
             </Button>
           </div>
         </div>

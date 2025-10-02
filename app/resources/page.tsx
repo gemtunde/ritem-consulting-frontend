@@ -4,12 +4,24 @@ import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Download, Play, BookOpen, FileText } from 'lucide-react';
+import { Calendar, Clock, Download, Play, BookOpen, FileText, CheckCircle, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
+
+interface SubscriptionState {
+  isSubmitting: boolean;
+  isSuccess: boolean;
+  error: string;
+}
 
 export default function Resources() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [email, setEmail] = useState('');
+  const [subscriptionState, setSubscriptionState] = useState<SubscriptionState>({
+    isSubmitting: false,
+    isSuccess: false,
+    error: ''
+  });
 
   useEffect(() => {
     setIsVisible(true);
@@ -90,6 +102,76 @@ export default function Resources() {
       case 'whitepaper': return 'bg-purple-100 text-purple-700';
       case 'webinar': return 'bg-green-100 text-green-700';
       default: return 'bg-gray-100 text-gray-700';
+    }
+  };
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Basic email validation
+    if (!email) {
+      setSubscriptionState(prev => ({
+        ...prev,
+        error: 'Please enter your email address'
+      }));
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setSubscriptionState(prev => ({
+        ...prev,
+        error: 'Please enter a valid email address'
+      }));
+      return;
+    }
+
+    setSubscriptionState({
+      isSubmitting: true,
+      isSuccess: false,
+      error: ''
+    });
+
+    try {
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('type', 'newsletter');
+      formData.append('source', 'resources-page');
+
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubscriptionState({
+          isSubmitting: false,
+          isSuccess: true,
+          error: ''
+        });
+        setEmail('');
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setSubscriptionState(prev => ({
+            ...prev,
+            isSuccess: false
+          }));
+        }, 5000);
+      } else {
+        setSubscriptionState({
+          isSubmitting: false,
+          isSuccess: false,
+          error: result.error || 'Subscription failed. Please try again.'
+        });
+      }
+    } catch (error) {
+      setSubscriptionState({
+        isSubmitting: false,
+        isSuccess: false,
+        error: 'Network error. Please try again.'
+      });
     }
   };
 
@@ -216,19 +298,59 @@ export default function Resources() {
             <p className="text-xl text-gray-600 mb-8">
               Get the latest insights, research findings, and best practices delivered directly to your inbox.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              />
-              <Button className="bg-orange-500 hover:bg-orange-600 px-8">
-                Subscribe
-              </Button>
-            </div>
-            <p className="text-sm text-gray-500 mt-4">
-              No spam. Unsubscribe at any time.
-            </p>
+            
+            <form onSubmit={handleSubscribe} className="space-y-4">
+              {/* Success Message */}
+              {subscriptionState.isSuccess && (
+                <div className="max-w-lg mx-auto p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <span className="text-green-800 font-medium">
+                    Thank you for subscribing! You will receive our next newsletter.
+                  </span>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {subscriptionState.error && (
+                <div className="max-w-lg mx-auto p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-3">
+                  <AlertCircle className="w-5 h-5 text-red-600" />
+                  <span className="text-red-800 font-medium">{subscriptionState.error}</span>
+                </div>
+              )}
+
+              <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={subscriptionState.isSubmitting}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                />
+                <Button 
+                  type="submit"
+                  className="bg-orange-500 hover:bg-orange-600 px-8 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  disabled={subscriptionState.isSubmitting || subscriptionState.isSuccess}
+                >
+                  {subscriptionState.isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Subscribing...
+                    </>
+                  ) : subscriptionState.isSuccess ? (
+                    <>
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Subscribed!
+                    </>
+                  ) : (
+                    'Subscribe'
+                  )}
+                </Button>
+              </div>
+              <p className="text-sm text-gray-500 mt-4">
+                No spam. Unsubscribe at any time.
+              </p>
+            </form>
           </div>
         </div>
       </section>
